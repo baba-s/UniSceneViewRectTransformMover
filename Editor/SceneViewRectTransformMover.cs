@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Kogane
+namespace Kogane.Internal
 {
 	/// <summary>
 	/// UI オブジェクトが選択されている時に Scene ビューに 1 pixel 単位で移動させるボタンを表示するエディタ拡張
