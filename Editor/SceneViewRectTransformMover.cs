@@ -14,6 +14,7 @@ namespace Kogane.Internal
 		//================================================================================
 		// 定数
 		//================================================================================
+		private const int   ID       = 896778164;
 		private const float WIDTH    = 88f;
 		private const float HEIGHT   = 88f;
 		private const float OFFSET_X = 6;
@@ -55,7 +56,7 @@ namespace Kogane.Internal
 
 			GUI.Window
 			(
-				id: -1,
+				id: ID,
 				clientRect: clientRect,
 				func: id => OnWindow( selection )
 			  , text: "uGUI"
@@ -91,6 +92,16 @@ namespace Kogane.Internal
 			{
 				Move( Vector2.down, selection );
 			}
+
+			var current           = Event.current;
+			var type              = current.type;
+			var isMouseDragOrDown = type == EventType.MouseDrag || type == EventType.MouseDown;
+			var isLeftButton      = current.button == 0;
+
+			if ( isMouseDragOrDown && isLeftButton )
+			{
+				current.Use();
+			}
 		}
 
 		/// <summary>
@@ -99,7 +110,7 @@ namespace Kogane.Internal
 		private static void Move( Vector2 movement, IReadOnlyList<RectTransform> selection )
 		{
 			Event.current.Use();
-			
+
 			Undo.RecordObjects( selection.OfType<Object>().ToArray(), "Move UI" );
 
 			foreach ( var rectTransform in selection )
